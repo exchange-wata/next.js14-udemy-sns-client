@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Post from '../Post/Post';
 
 const Timeline = () => {
@@ -6,14 +5,10 @@ const Timeline = () => {
     <div className='min-h-screen bg-gray-100'>
       <main className='container mx-auto py-4'>
         <div className='bg-white shadow-md rounded p-4 mb-4'>
-          <form onSubmit={handleSubmit}>
+          <form>
             <textarea
               className='w-full h-24 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-400'
               placeholder="What's on your mind?"
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                setPostText(e.target.value)
-              }
-              value={postText}
             ></textarea>
             <button
               type='submit'
@@ -23,9 +18,7 @@ const Timeline = () => {
             </button>
           </form>
         </div>
-        {latestPosts.map((post: PostType) => (
-          <Post key={post.id} post={post} />
-        ))}
+        <Post />
       </main>
     </div>
   );

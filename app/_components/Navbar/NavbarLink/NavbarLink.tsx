@@ -8,10 +8,8 @@ type Props = {
 
 export const NavbarLink = ({ href, displayName, clazzName }: Props) => {
   return (
-    <>
-      <Link href={href} className={clazzName}>
-        {displayName}
-      </Link>
-    </>
+    <Link href={href} className={clazzName}>
+      {displayName}
+    </Link>
   );
 };
