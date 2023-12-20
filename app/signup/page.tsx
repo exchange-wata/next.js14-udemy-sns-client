@@ -1,8 +1,6 @@
-import Head from 'next/head';
-import React from 'react';
-import Header from './components/Head/head';
+import Header from '../_components/Head/head';
 
-const Signup = () => {
+const SingUp = () => {
   return (
     <div
       style={{ height: '88vh' }}
@@ -16,7 +14,8 @@ const Signup = () => {
       </div>
       <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
         <div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
-          <form onSubmit={handleSubmit}>
+          {/* <form onSubmit={handleSubmit}> */}
+          <form>
             <div>
               <label
                 htmlFor='email'
@@ -31,9 +30,9 @@ const Signup = () => {
                 autoComplete='name'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setUsername(e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                //   setUsername(e.target.value)
+                // }
               />
             </div>
             <div className='mt-6'>
@@ -50,9 +49,9 @@ const Signup = () => {
                 autoComplete='email'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                //   setEmail(e.target.value)
+                // }
               />
             </div>
             <div className='mt-6'>
@@ -69,9 +68,9 @@ const Signup = () => {
                 autoComplete='new-password'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.target.value)
-                }
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                //   setPassword(e.target.value)
+                // }
               />
             </div>
             <div className='mt-6'>
@@ -89,4 +88,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SingUp;

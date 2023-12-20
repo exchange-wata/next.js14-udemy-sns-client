@@ -1,5 +1,9 @@
-import Timeline from './components/Timeline/Timeline';
+import Timeline from './_components/Timeline/Timeline';
 
 export default function Home() {
-  return <Timeline />;
+  return (
+    <div>
+      <Timeline />
+    </div>
+  );
 }
