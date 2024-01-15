@@ -1,15 +1,31 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Header from '../_components/Head/head';
+import apiClient from '../_lib/apiClient';
 
 const SingUp = () => {
+  const router = useRouter();
+
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    try {
+      await apiClient.post('/auth/register', {
+        name,
+        email,
+        password,
+      });
+
+      router.push('/login');
+    } catch (error) {
+      alert('入力内容が正しくありません。');
+    }
   };
 
   return (
