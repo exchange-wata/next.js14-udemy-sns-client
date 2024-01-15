@@ -1,6 +1,17 @@
+'use client';
+
+import { useState } from 'react';
 import Header from '../_components/Head/head';
 
 const SingUp = () => {
+  const [name, setName] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div
       style={{ height: '88vh' }}
@@ -14,8 +25,7 @@ const SingUp = () => {
       </div>
       <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
         <div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
-          {/* <form onSubmit={handleSubmit}> */}
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor='email'
@@ -30,9 +40,9 @@ const SingUp = () => {
                 autoComplete='name'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                //   setUsername(e.target.value)
-                // }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
               />
             </div>
             <div className='mt-6'>
@@ -49,9 +59,9 @@ const SingUp = () => {
                 autoComplete='email'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                //   setEmail(e.target.value)
-                // }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
             </div>
             <div className='mt-6'>
@@ -68,9 +78,9 @@ const SingUp = () => {
                 autoComplete='new-password'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                //   setPassword(e.target.value)
-                // }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
               />
             </div>
             <div className='mt-6'>
