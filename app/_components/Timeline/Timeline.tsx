@@ -1,29 +1,57 @@
 'use client';
 import { useAuth } from '@/app/_context/auth';
 import apiClient from '@/app/_lib/apiClient';
-import React, { useState } from 'react';
+import { PostType } from '@/app/types/post';
+import React, { useEffect, useState } from 'react';
 import Post from '../Post/Post';
 
 const Timeline = () => {
   const [postText, setPostText] = useState<string>('');
+  const [latestPosts, setLatestPosts] = useState<PostType[]>();
 
+  // FIXME: 仮実装なのでなんとかしたい
   const { login } = useAuth();
-  const token = localStorage.getItem('auth_token');
-  if (!token) return;
-  login(token);
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('auth_token');
+    if (!token) return;
+    login(token);
+  }
+
+  const getPost = async () => {
+    // つぶやきの取得
+    try {
+      const posts = await apiClient.get('/posts/get', {});
+      setLatestPosts(posts?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // つぶやきの投稿
     try {
       // TODO: authorIdをpostデータに含める
-      await apiClient.post('/posts/post', { content: postText });
+      const latestPost = await apiClient.post('/posts/post', {
+        content: postText,
+      });
+
+      setLatestPosts((prevPostsData) => [latestPost.data, prevPostsData]);
 
       setPostText('');
     } catch (error) {
       alert('ログインしてください');
     }
   };
+
+  useEffect(() => {
+    const fetchLatestPosts = async () => {
+      await getPost();
+    };
+    fetchLatestPosts();
+  }, []);
+
   return (
     <div className='min-h-screen bg-gray-100'>
       <main className='container mx-auto py-4'>
@@ -45,7 +73,9 @@ const Timeline = () => {
             </button>
           </form>
         </div>
-        <Post />
+        {latestPosts?.map((post: PostType) => (
+          <Post key={post.id} post={post} />
+        ))}
       </main>
     </div>
   );

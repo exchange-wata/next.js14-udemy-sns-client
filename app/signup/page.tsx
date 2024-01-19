@@ -23,7 +23,7 @@ const SingUp = () => {
       });
 
       router.push('/login');
-    } catch (error) {
+    } catch (error: any) {
       alert('入力内容が正しくありません。');
     }
   };

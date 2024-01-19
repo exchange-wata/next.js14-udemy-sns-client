@@ -4,5 +4,6 @@ export interface PostType {
   id: number;
   content: string;
   createdAt: string;
-  user: UserType;
+  authorId: number;
+  author: UserType;
 }
