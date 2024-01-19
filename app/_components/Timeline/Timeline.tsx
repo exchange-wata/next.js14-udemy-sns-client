@@ -37,7 +37,12 @@ const Timeline = () => {
         content: postText,
       });
 
-      setLatestPosts((prevPostsData) => [latestPost.data, prevPostsData]);
+      // FIXME: なんか違う気がする
+      setLatestPosts((prevPostsData) =>
+        prevPostsData === undefined
+          ? [latestPost.data]
+          : [latestPost.data, ...prevPostsData]
+      );
 
       setPostText('');
     } catch (error) {
