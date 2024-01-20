@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
     apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
     try {
       apiClient
-        .get('users/find')
+        .get('/users/find')
         .then((res) => {
           setUser(res.data.user);
         })
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
       // FIXME: 重複記述があるのでなんとかする
       apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
       apiClient
-        .get('users/find')
+        .get('/users/find')
         .then((res) => {
           setUser(res.data.user);
         })
