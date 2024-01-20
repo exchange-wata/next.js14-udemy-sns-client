@@ -1,5 +1,6 @@
 'use client';
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
+import { useGetLoginUser } from '../_hooks/useGetLoginUser';
 import apiClient from '../_lib/apiClient';
 import { UserType } from '../types/user';
 
@@ -24,23 +25,14 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: AuthProviderContext) => {
-  const [user, setUser] = useState<Omit<UserType, 'posts'> | null>(null);
+  const { user, setUser } = useGetLoginUser();
 
   const login = (token: string) => {
     localStorage.setItem('auth_token', token);
 
     // FIXME: 重複記述があるのでなんとかする
     apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
-    try {
-      apiClient
-        .get('/users/find')
-        .then((res) => {
-          setUser(res.data.user);
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
+    setUser(user);
   };
 
   const logout = () => {
@@ -54,12 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
     if (token) {
       // FIXME: 重複記述があるのでなんとかする
       apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
-      apiClient
-        .get('/users/find')
-        .then((res) => {
-          setUser(res.data.user);
-        })
-        .catch((err) => console.log(err));
+      setUser(user);
     }
   }, []);
 
