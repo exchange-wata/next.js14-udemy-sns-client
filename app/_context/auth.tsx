@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
     localStorage.setItem('auth_token', token);
 
     // FIXME: 重複記述があるのでなんとかする
+    apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
     try {
       apiClient
         .get('users/find')
@@ -42,14 +43,17 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
     }
   };
 
-  const logout = () => localStorage.removeItem('auth_token');
+  const logout = () => {
+    localStorage.removeItem('auth_token');
+    setUser(null);
+    delete apiClient.defaults.headers['Authorization'];
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
     if (token) {
-      apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
-
       // FIXME: 重複記述があるのでなんとかする
+      apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
       apiClient
         .get('users/find')
         .then((res) => {
