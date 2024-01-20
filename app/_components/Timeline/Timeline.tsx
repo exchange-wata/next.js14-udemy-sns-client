@@ -1,5 +1,4 @@
 'use client';
-import { useAuth } from '@/app/_context/auth';
 import apiClient from '@/app/_lib/apiClient';
 import { PostType } from '@/app/types/post';
 import React, { useEffect, useState } from 'react';
@@ -7,15 +6,7 @@ import Post from '../Post/Post';
 
 const Timeline = () => {
   const [postText, setPostText] = useState<string>('');
-  const [latestPosts, setLatestPosts] = useState<PostType[]>();
-
-  // FIXME: 仮実装なのでなんとかしたい
-  const { login } = useAuth();
-  if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('auth_token');
-    if (!token) return;
-    login(token);
-  }
+  const [latestPosts, setLatestPosts] = useState<PostType[]>([]);
 
   const getPost = async () => {
     // つぶやきの取得
@@ -37,15 +28,11 @@ const Timeline = () => {
         content: postText,
       });
 
-      // FIXME: なんか違う気がする
-      setLatestPosts((prevPostsData) =>
-        prevPostsData === undefined
-          ? [latestPost.data]
-          : [latestPost.data, ...prevPostsData]
-      );
+      setLatestPosts((prevPosts) => [latestPost.data, ...prevPosts]);
 
       setPostText('');
     } catch (error) {
+      console.log(error);
       alert('ログインしてください');
     }
   };
@@ -78,7 +65,7 @@ const Timeline = () => {
             </button>
           </form>
         </div>
-        {latestPosts?.map((post: PostType) => (
+        {latestPosts.map((post: PostType) => (
           <Post key={post.id} post={post} />
         ))}
       </main>
