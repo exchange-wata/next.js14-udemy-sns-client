@@ -33,6 +33,7 @@ const Timeline = () => {
       setPostText('');
     } catch (error) {
       console.log(error);
+      // FIXME: アラート文言の変更
       alert('ログインしてください');
     }
   };
