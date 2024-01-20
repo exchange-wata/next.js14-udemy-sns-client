@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 概要
 
-## Getting Started
+- udemy の教材(下記動画の FE 側)
+  - [【Next.js/Node.js/Prisma/Supabase】本格的な SNS アプリをフルスタック構築するマスター講座](https://www.udemy.com/share/108OW83@xVuHW9vh6L3MwMNeuLWVyDUxqEeLNJ9iP95VtP-p83pSo3vf0J1deqUfnBGnrSeSJg==/)
 
-First, run the development server:
+## 動作環境
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- FE 側
+  - (node_module がない場合は npm install する)
+  - `yarn dev` で FE サーバーの起動が可能
+- [BE 側](https://github.com/exchange-wata/next.js14-udemy-sns-api) を起動しておく
+  - BE 側コードの clone
+  - `yarn dev` で BE サーバーの起動が可能
