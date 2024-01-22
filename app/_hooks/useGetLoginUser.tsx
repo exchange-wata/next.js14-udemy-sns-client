@@ -7,8 +7,9 @@ export const useGetLoginUser = () => {
 
   const findUser = async () => {
     try {
-      await apiClient.get('/users/find').then((res) => {
-        setUser(res.data.user);
+      const res = await apiClient.get('/users/find').then((res) => {
+        console.log(`user_hook1: ${user}`);
+        return res.data.user;
       });
     } catch (error) {
       console.log(`ログインユーザーの取得に失敗しました。`);
@@ -22,7 +23,7 @@ export const useGetLoginUser = () => {
 
     if (token && user === null) findUser();
   }, [user, setUser]);
-  console.log(`user_hook: ${user}`);
+  console.log(`user_hook2: ${user}`);
 
   return { user, setUser };
 };

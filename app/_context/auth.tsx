@@ -39,8 +39,7 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
-    if (token && user === null) setUser(user);
+    if (user === null) setUser(user);
   }, [user, setUser]);
 
   const value = { login, logout, user };
