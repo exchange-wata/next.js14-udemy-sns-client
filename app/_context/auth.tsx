@@ -16,7 +16,7 @@ interface AuthProviderContext {
 
 const AuthContext = React.createContext<AuthContextType>({
   user: null,
-  login: () => {},
+  login: (token: string) => {},
   logout: () => {},
 });
 
@@ -29,9 +29,6 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
 
   const login = (token: string) => {
     localStorage.setItem('auth_token', token);
-
-    // FIXME: 重複記述があるのでなんとかする
-    apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
     setUser(user);
   };
 
@@ -43,12 +40,8 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
-    if (token) {
-      // FIXME: 重複記述があるのでなんとかする
-      apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
-      setUser(user);
-    }
-  }, []);
+    if (token && user === null) setUser(user);
+  }, [user, setUser]);
 
   const value = { login, logout, user };
 
