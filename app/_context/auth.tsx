@@ -41,7 +41,10 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
-    if (token) findUser();
+    if (token) {
+      apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
+      findUser();
+    }
   }, []);
 
   const value = { login, logout, user };
