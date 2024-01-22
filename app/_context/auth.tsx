@@ -25,11 +25,12 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: AuthProviderContext) => {
-  const { user, setUser } = useGetLoginUser();
+  const { user, setUser, findUser } = useGetLoginUser();
 
   const login = (token: string) => {
     localStorage.setItem('auth_token', token);
-    setUser(user);
+    apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
+    findUser();
   };
 
   const logout = () => {
@@ -39,11 +40,11 @@ export const AuthProvider = ({ children }: AuthProviderContext) => {
   };
 
   useEffect(() => {
-    if (user === null) setUser(user);
-  }, [user, setUser]);
+    const token = localStorage.getItem('auth_token');
+    if (token) findUser();
+  }, []);
 
   const value = { login, logout, user };
-  console.log(`user_auth: ${user}`);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
