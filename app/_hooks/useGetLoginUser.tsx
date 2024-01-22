@@ -22,6 +22,7 @@ export const useGetLoginUser = () => {
 
     if (token && user === null) findUser();
   }, [user, setUser]);
+  console.log(`user_hook: ${user}`);
 
   return { user, setUser };
 };

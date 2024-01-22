@@ -3,7 +3,9 @@ import { useAuth } from '@/app/_context/auth';
 import { NavbarLink } from './NavbarLink/NavbarLink';
 
 const Navbar = () => {
+  // FIXME: ログイン後、ブラウザをリロードしないとuserが取得状態にならない
   const { user, logout } = useAuth();
+  console.log(`user_nav: ${user}`);
 
   return (
     <header className='bg-gray-700 p-4 text-white'>
