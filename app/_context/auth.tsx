@@ -24,6 +24,7 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+// TODO: tokenの保持方法見直す
 export const AuthProvider = ({ children }: AuthProviderContext) => {
   const { user, setUser, findUser } = useGetLoginUser();
 
