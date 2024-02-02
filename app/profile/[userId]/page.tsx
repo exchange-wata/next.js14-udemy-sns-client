@@ -34,6 +34,7 @@ const UserProfile = ({ params }: { params: { userId: number } }) => {
             </div>
           </div>
         </div>
+        {/* TODO: プロフィール画面に表示されているユーザーのpostだけを表示する */}
         {/* <div className='bg-white shadow-md rounded p-4 mb-4' key={post.id}>
           <div className='mb-4'>
             <div className='flex items-center mb-2'>
