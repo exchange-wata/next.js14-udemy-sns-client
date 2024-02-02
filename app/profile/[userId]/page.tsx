@@ -1,5 +1,6 @@
 'use client';
 import { useUserProfile } from '@/app/_hooks/useUserProfile';
+// import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const UserProfile = ({ params }: { params: { userId: number } }) => {
@@ -7,11 +8,16 @@ const UserProfile = ({ params }: { params: { userId: number } }) => {
 
   const { profile, getUserProfile } = useUserProfile();
 
+  // TODO: ユーザープロフィールが取得できない時にnot foundページを出力する
+  // FIXME: データ取得できるまでのnullの瞬間にnot found判定されてしまう
+  // if (profile === null) notFound();
+
   useEffect(() => {
     const requestedUserId = params.userId;
     if (requestedUserId) {
       setUserId(requestedUserId);
       getUserProfile(requestedUserId);
+      console.log(profile);
     }
   }, [userId, setUserId]);
 

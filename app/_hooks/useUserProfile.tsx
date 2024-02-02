@@ -12,7 +12,6 @@ export const useUserProfile = () => {
         .get(`/profile/find/${userId}`)
         .then((res) => setProfile(res.data.profile));
     } catch (error) {
-      alert(`ユーザープロフィールの取得に失敗しました。`);
       console.log(error);
     }
   };
