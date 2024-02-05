@@ -16,5 +16,5 @@ export const useUserProfile = () => {
     }
   };
 
-  return { profile, setProfile, getUserProfile };
+  return { profile, getUserProfile };
 };
