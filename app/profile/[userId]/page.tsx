@@ -1,9 +1,10 @@
 'use client';
-import { useUserProfile } from '@/app/_hooks/useUserProfile';
+import { useUserProfile } from '@/app/profile/[userId]/_hooks/useUserProfile';
 // import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const UserProfile = ({ params }: { params: { userId: number } }) => {
+  // ページ表示時点では不変になるので不要
   const [userId, setUserId] = useState<number | null>(null);
 
   const { profile, getUserProfile } = useUserProfile();
