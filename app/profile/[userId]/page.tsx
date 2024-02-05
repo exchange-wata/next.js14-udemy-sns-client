@@ -3,6 +3,7 @@ import { useUserProfile } from '@/app/profile/[userId]/_hooks/useUserProfile';
 import { notFound } from 'next/navigation';
 
 const UserProfile = ({ params }: { params: { userId: number } }) => {
+  // TODO: profileがnullの時が内容にローディングとか入れたい
   const { profile, error } = useUserProfile(params.userId);
 
   if (error) notFound();
