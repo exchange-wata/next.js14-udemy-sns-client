@@ -13,7 +13,7 @@ export const useUserProfile = (userId: number) => {
         const res = await apiClient.get(`/profile/find/${userId}`);
 
         if (!res.data.profile)
-          throw new Error(`Profile not found for userId is ${userId}`);
+          throw new Error(`Profile not found, that userId is ${userId}`);
 
         setProfile(res.data.profile);
       } catch (error) {
