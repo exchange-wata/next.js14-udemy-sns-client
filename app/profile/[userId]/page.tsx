@@ -1,17 +1,16 @@
 'use client';
 import { useUserProfile } from '@/app/profile/[userId]/_hooks/useUserProfile';
 import { PostType } from '@/app/types/post';
-// import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { useUserPosts } from './_hooks/useUserPosts';
 
 const UserProfile = ({ params }: { params: { userId: number } }) => {
-  // TODO: profileがnullの時が内容にローディングとか入れたい
+  // TODO: ローディングとか入れたい
   const { profile, error: gettingProfileError } = useUserProfile(params.userId);
 
   const { posts, error: gettingPostsError } = useUserPosts(params.userId);
 
-  // FIXME: 投稿が無いときどうするか
-  // if (gettingProfileError || gettingPostsError) notFound();
+  if (gettingProfileError || gettingPostsError) notFound();
 
   return (
     <div className='container mx-auto px-4 py-8'>
