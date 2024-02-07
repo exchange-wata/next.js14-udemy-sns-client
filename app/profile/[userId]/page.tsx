@@ -4,13 +4,17 @@ import { PostType } from '@/app/types/post';
 import { notFound } from 'next/navigation';
 import { useUserPosts } from './_hooks/useUserPosts';
 
-const UserProfile = ({ params }: { params: { userId: number } }) => {
+const UserProfile = ({ params }: { params: { userId: string } }) => {
   // TODO: ローディングとか入れたい
-  const { profile, error: gettingProfileError } = useUserProfile(params.userId);
+  const { profile, error: gettingProfileError } = useUserProfile(
+    Number(params.userId)
+  );
+  if (gettingProfileError) notFound();
 
-  const { posts, error: gettingPostsError } = useUserPosts(params.userId);
-
-  if (gettingProfileError || gettingPostsError) notFound();
+  const { posts, error: gettingPostsError } = useUserPosts(
+    Number(params.userId)
+  );
+  if (gettingPostsError) notFound();
 
   return (
     <div className='container mx-auto px-4 py-8'>
