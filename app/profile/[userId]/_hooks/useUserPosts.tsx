@@ -25,9 +25,7 @@ export const useUserPosts = (userId: number) => {
       }
     };
 
-    // TODO: postsがnullの時だけにしてみる
     if (posts === null) getUserPosts(userId);
-    // TODO: 依存配列消してみる
   }, []);
 
   return { posts, error };
