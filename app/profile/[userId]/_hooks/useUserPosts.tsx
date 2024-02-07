@@ -13,19 +13,22 @@ export const useUserPosts = (userId: number) => {
       try {
         const res = await apiClient.get(`posts/get/${userId}`);
 
-        console.log(...res.data.posts);
-        if (!res.data.posts)
+        console.log(res.data);
+        // FIXME: postsを一件も持たないユーザもいるので修正必要
+        if (res.data.length === 0)
           throw new Error(`Posts not found, that user ID is ${userId}`);
 
-        setPosts(res.data.posts);
+        setPosts(res.data);
       } catch (error) {
         console.log(error);
         setError(error);
       }
     };
 
-    getUserPosts(userId);
-  }, [posts, error]);
+    // TODO: postsがnullの時だけにしてみる
+    if (posts === null) getUserPosts(userId);
+    // TODO: 依存配列消してみる
+  }, [posts]);
 
   return { posts, error };
 };
