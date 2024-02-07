@@ -1,12 +1,17 @@
 'use client';
 import { useUserProfile } from '@/app/profile/[userId]/_hooks/useUserProfile';
-import { notFound } from 'next/navigation';
+import { PostType } from '@/app/types/post';
+// import { notFound } from 'next/navigation';
+import { useUserPosts } from './_hooks/useUserPosts';
 
 const UserProfile = ({ params }: { params: { userId: number } }) => {
   // TODO: profileがnullの時が内容にローディングとか入れたい
-  const { profile, error } = useUserProfile(params.userId);
+  const { profile, error: gettingProfileError } = useUserProfile(params.userId);
 
-  if (error) notFound();
+  const { posts, error: gettingPostsError } = useUserPosts(params.userId);
+
+  // FIXME: 投稿が無いときどうするか
+  // if (gettingProfileError || gettingPostsError) notFound();
 
   return (
     <div className='container mx-auto px-4 py-8'>
@@ -27,19 +32,26 @@ const UserProfile = ({ params }: { params: { userId: number } }) => {
             </div>
           </div>
         </div>
-        {/* TODO: プロフィール画面に表示されているユーザーのpostだけを表示する */}
-        {/* <div className='bg-white shadow-md rounded p-4 mb-4' key={post.id}>
-          <div className='mb-4'>
-            <div className='flex items-center mb-2'>
-              <img className='w-10 h-10 rounded-full mr-2' alt='User Avatar' />
-              <div>
-                <h2 className='font-semibold text-md'>shincode</h2>
-                <p className='text-gray-500 text-sm'>2023/05/08</p>
+        {posts?.length !== 0 &&
+          posts?.map((post: PostType) => {
+            <div className='bg-white shadow-md rounded p-4 mb-4' key={post.id}>
+              <div className='mb-4'>
+                <div className='flex items-center mb-2'>
+                  <img
+                    className='w-10 h-10 rounded-full mr-2'
+                    alt='User Avatar'
+                  />
+                  <div>
+                    <h2 className='font-semibold text-md'>
+                      {post.author.name}
+                    </h2>
+                    <p className='text-gray-500 text-sm'>{post.createdAt}</p>
+                  </div>
+                </div>
+                <p className='text-gray-700'>{post.content}</p>
               </div>
-            </div>
-            <p className='text-gray-700'>はじめての投稿です。</p>
-          </div>
-        </div> */}
+            </div>;
+          })}
       </div>
     </div>
   );
