@@ -23,7 +23,7 @@ export const useUserProfile = (userId: number) => {
     };
 
     getUserProfile(userId);
-  }, [profile, userId]);
+  }, []);
 
   return { profile, error };
 };
