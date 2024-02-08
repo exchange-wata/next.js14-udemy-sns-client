@@ -8,8 +8,6 @@ export const useUserPosts = (userId: number) => {
 
   useEffect(() => {
     const getUserPosts = async (userId: number) => {
-      if (!userId) return;
-
       try {
         const res = await apiClient.get(`posts/get/${userId}`);
         setPosts(res.data);
