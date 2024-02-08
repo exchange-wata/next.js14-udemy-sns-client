@@ -6,14 +6,10 @@ import { useUserPosts } from './_hooks/useUserPosts';
 
 const UserProfile = ({ params }: { params: { userId: string } }) => {
   // TODO: ローディングとか入れたい
-  const { profile, error: gettingProfileError } = useUserProfile(
-    Number(params.userId)
-  );
+  const { profile, error: gettingProfileError } = useUserProfile(params.userId);
   if (gettingProfileError) notFound();
 
-  const { posts, error: gettingPostsError } = useUserPosts(
-    Number(params.userId)
-  );
+  const { posts, error: gettingPostsError } = useUserPosts(params.userId);
   if (gettingPostsError) notFound();
 
   return (
