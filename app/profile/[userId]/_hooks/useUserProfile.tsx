@@ -1,29 +1,16 @@
-import { useEffect, useState } from 'react';
-import apiClient from '../../../_lib/apiClient';
-import { ProfileType } from '../../../types/profile';
+import { fetcher } from '@/app/_lib/fetcher';
+import { ProfileType } from '@/app/types/profile';
+import useSWR from 'swr';
 
 export const useUserProfile = (userId: string) => {
-  const [profile, setProfile] = useState<ProfileType | null>(null);
-  const [error, setError] = useState<unknown | null>(null);
+  const { data, error, isLoading } = useSWR<ProfileType | null>(
+    `/profile/find/${userId}`,
+    fetcher
+  );
 
-  useEffect(() => {
-    const getUserProfile = async (userId: string) => {
-      if (!userId) return;
-      try {
-        const res = await apiClient.get(`/profile/find/${userId}`);
-
-        if (!res.data.profile)
-          throw new Error(`Profile not found, that userId is ${userId}`);
-
-        setProfile(res.data.profile);
-      } catch (error) {
-        console.log(error);
-        setError(error);
-      }
-    };
-
-    if (profile === null) getUserProfile(userId);
-  }, []);
-
-  return { profile, error };
+  return {
+    profile: data,
+    gettingProfileError: error,
+    isProfileLoading: isLoading,
+  };
 };
