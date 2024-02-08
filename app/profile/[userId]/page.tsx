@@ -2,32 +2,39 @@
 import { useUserProfile } from '@/app/profile/[userId]/_hooks/useUserProfile';
 import { PostType } from '@/app/types/post';
 import { notFound } from 'next/navigation';
+// import { Suspense } from 'react';
 import { useUserPosts } from './_hooks/useUserPosts';
+import Loading from './loading';
 
 const UserProfile = ({ params }: { params: { userId: string } }) => {
-  // TODO: ローディングとか入れたい
-  const { profile, error: gettingProfileError } = useUserProfile(params.userId);
+  const { profile, gettingProfileError, isProfileLoading } = useUserProfile(
+    params.userId
+  );
+
   if (gettingProfileError) notFound();
 
   const { posts, error: gettingPostsError } = useUserPosts(params.userId);
   if (gettingPostsError) notFound();
 
+  if (isProfileLoading || !profile) return <Loading />;
+
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='w-full max-w-xl mx-auto'>
+        {/* <Suspense fallback={<Loading />}> */}
         <div className='bg-white shadow-md rounded-lg p-6 mb-4'>
           <div className='flex items-center'>
             {/* TODO: next/imageに変更したい */}
             <img
               className='w-20 h-20 rounded-full mr-4'
               alt='User Avatar'
-              src={profile?.imageUrl}
+              src={profile.imageUrl}
             />
             <div>
               <h2 className='text-2xl font-semibold mb-1'>
-                {profile?.user.name}
+                {profile.user.name}
               </h2>
-              <p className='text-gray-600'>{profile?.bio}</p>
+              <p className='text-gray-600'>{profile.bio}</p>
             </div>
           </div>
         </div>
@@ -49,6 +56,7 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
             </div>
           </div>
         ))}
+        {/* </Suspense> */}
       </div>
     </div>
   );
