@@ -2,11 +2,9 @@
 import { fetcher } from '@/app/_lib/fetcher';
 import { PostType } from '@/app/types/post';
 import { ProfileType } from '@/app/types/profile';
-import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import useSWR from 'swr';
-import { useUserPosts } from './_hooks/useUserPosts';
 import Error from './error';
 import Loading from './loading';
 
@@ -17,8 +15,11 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
     { suspense: true }
   );
 
-  const { posts, error: gettingPostsError } = useUserPosts(params.userId);
-  if (gettingPostsError) notFound();
+  const { data: posts } = useSWR(
+    `/posts/get/${params.userId}`,
+    fetcher<PostType[]>,
+    { suspense: true }
+  );
 
   return (
     <div className='container mx-auto px-4 py-8'>
