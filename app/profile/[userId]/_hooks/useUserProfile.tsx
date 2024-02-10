@@ -5,11 +5,12 @@ import useSWR from 'swr';
 export const useUserProfile = (userId: string) => {
   const { data, error, isLoading } = useSWR<ProfileType | null>(
     `/profile/find/${userId}`,
-    fetcher
+    fetcher<ProfileType>,
+    { suspense: true }
   );
 
   return {
-    profile: data,
+    profile: !!data ? data : null,
     gettingProfileError: error,
     isProfileLoading: isLoading,
   };
