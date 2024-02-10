@@ -1,15 +1,21 @@
 'use client';
-import { useUserProfile } from '@/app/profile/[userId]/_hooks/useUserProfile';
+import { fetcher } from '@/app/_lib/fetcher';
 import { PostType } from '@/app/types/post';
+import { ProfileType } from '@/app/types/profile';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import useSWR from 'swr';
 import { useUserPosts } from './_hooks/useUserPosts';
 import Error from './error';
 import Loading from './loading';
 
 const UserProfile = ({ params }: { params: { userId: string } }) => {
-  const { profile } = useUserProfile(params.userId);
+  const { data: profile } = useSWR(
+    `/profile/find/${params.userId}`,
+    fetcher<ProfileType>,
+    { suspense: true }
+  );
 
   const { posts, error: gettingPostsError } = useUserPosts(params.userId);
   if (gettingPostsError) notFound();
