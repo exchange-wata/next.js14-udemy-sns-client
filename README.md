@@ -11,3 +11,9 @@
 - [BE 側](https://github.com/exchange-wata/next.js14-udemy-sns-api) を起動しておく
   - BE 側コードの clone
   - `yarn dev` で BE サーバーの起動が可能
+
+## 未対応箇所
+- bioについて
+  - サインアップ時にbioの入力項目がない
+  - プロフィール画面にてbioの編集が不可能
+- swrの導入途中のPRがいくつか残っている
