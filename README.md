@@ -10,7 +10,8 @@
   - `yarn dev` で FE サーバーの起動が可能
 - [BE 側](https://github.com/exchange-wata/next.js14-udemy-sns-api) を起動しておく
   - BE 側コードの clone
-  - `yarn dev` で BE サーバーの起動が可能
+  - BEのREADMEを参照の上、環境構築を行う
+    - `yarn dev` で BE サーバーの起動が可能
 
 ## 未対応箇所
 - bioについて
