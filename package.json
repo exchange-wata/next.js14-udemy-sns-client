@@ -13,7 +13,9 @@
     "axios": "^1.6.5",
     "next": "^14.0.5-canary.19",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-error-boundary": "^4.0.12",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@types/node": "^20",
